@@ -1,0 +1,32 @@
+{
+  "name": "rising-tide",
+  "version": "2.0.0",
+  "description": "Blind Cartographers: Rising Tide, a 3D multiplayer expedition",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test test/*.test.js",
+    "test:browser": "node scripts/browser.cjs",
+    "test:world": "node scripts/world-test.cjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.3.0",
+    "socket.io": "^4.8.4",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "^153.0.0",
+    "playwright": "^1.64.1",
+    "socket.io-client": "^4.8.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

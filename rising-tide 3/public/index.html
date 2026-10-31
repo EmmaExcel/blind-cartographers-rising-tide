@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#102b31" />
+    <title>Rising Tide · Blind Cartographers</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <a href="/" class="brand" aria-label="Rising Tide home"
+        ><span class="brandmark">⌁</span
+        ><span>BLIND CARTOGRAPHERS<small>RISING TIDE</small></span></a
+      >
+      <div class="header-right">
+        <span id="connection" role="status">Connecting…</span
+        ><button id="mute" class="iconbutton" aria-pressed="true">
+          Sound off</button
+        ><button id="help" class="iconbutton">How to play</button>
+      </div>
+    </header>
+    <main>
+      <p id="error" role="alert"></p>
+      <div class="world-layout">
+        <section class="world-column">
+          <div class="world-heading">
+            <span class="eyebrow" id="worldlabel">THE LOST ARCHIPELAGO</span
+            ><span class="coordinate">07° N / 07° E</span>
+          </div>
+          <div id="world" aria-label="Interactive 3D expedition island">
+            <div class="world-fallback" id="worldfallback">
+              Preparing your expedition…
+            </div>
+            <div class="world-top">
+              <span class="live-tag"><i></i> EXPEDITION VIEW</span>
+              <div class="world-controls">
+                <button id="meetcrew" class="glassbutton">
+                  Meet the crew ↗</button
+                ><button id="camera" class="glassbutton">Top view ↗</button>
+              </div>
+            </div>
+            <div id="worldphase" hidden></div>
+            <div class="compass"><span>N</span><b>✧</b></div>
+            <div class="world-caption">
+              <span id="worldcaption"
+                >An island of secrets.<br />A crew you almost trust.</span
+              ><span class="world-number">01 / 07</span>
+            </div>
+          </div>
+          <div class="world-foot">
+            <span><i class="key-dot safe"></i> SAFE GROUND</span
+            ><span><i class="key-dot unknown"></i> UNCHARTED</span
+            ><span><i class="key-dot danger"></i> DANGER</span
+            ><span><i class="key-dot gold"></i> TREASURE</span>
+          </div>
+          <div id="step-selection" hidden>
+            <span id="selectedlabel">Choose a highlighted tile</span
+            ><button id="confirmstep" disabled>Take this step ↗</button>
+          </div>
+        </section>
+        <div class="interface-column">
+          <section id="entry">
+            <span class="eyebrow">A MULTIPLAYER EXPEDITION</span>
+            <h1>The island is sinking.<br /><em>So is your trust.</em></h1>
+            <p class="intro">
+              You hold a fragment of the map. Your friends hold the rest. Find
+              the treasure together, before the tide takes everything.
+            </p>
+            <div class="featureline">
+              <span>2–6 explorers</span><span>Private maps</span
+              ><span>One hidden traitor</span>
+            </div>
+            <div class="card entry-card">
+              <div class="section-title">
+                <span class="section-number">01</span>
+                <h2>Assemble your expedition</h2>
+              </div>
+              <label for="name">EXPLORER NAME</label
+              ><input
+                id="name"
+                maxlength="18"
+                autocomplete="nickname"
+                placeholder="What should the crew call you?"
+              /><button id="create" class="primary">
+                Create expedition <span>↗</span>
+              </button>
+              <div class="divider"><span>OR JOIN YOUR FRIENDS</span></div>
+              <div class="join">
+                <input
+                  id="code"
+                  maxlength="4"
+                  aria-label="Room code"
+                  placeholder="ROOM CODE"
+                /><button id="join" class="secondary">Join ↗</button>
+              </div>
+            </div>
+            <p class="footnote">
+              No accounts. No downloads. A little healthy suspicion.
+            </p>
+          </section>
+          <section id="room" hidden>
+            <div class="roomline">
+              <div>
+                <span class="eyebrow">EXPEDITION CODE</span
+                ><strong id="roomcode"></strong>
+              </div>
+              <div>
+                <button id="copycode" class="iconbutton">Copy code</button
+                ><button id="leave" class="iconbutton">Leave</button>
+              </div>
+            </div>
+            <div id="players" class="crew"></div>
+            <section id="lobby" class="card">
+              <span class="eyebrow">BASE CAMP</span>
+              <h2>Every explorer counts.</h2>
+              <p>
+                Share the code with your crew. Ready up when everyone has
+                arrived.
+              </p>
+              <div class="briefing">
+                <b>Your mission</b>
+                <p>
+                  Reach the treasure with three lives. Read your private chart
+                  and guide the crew using signals alone.
+                </p>
+                <b>Watch your back</b>
+                <p>
+                  Four or more explorers? One secretly works against you. Trust
+                  is part of the game.
+                </p>
+              </div>
+              <button id="ready" class="primary">Ready</button
+              ><button id="start" class="secondary">Start expedition ↗</button>
+            </section>
+            <section id="game" hidden>
+              <div class="stats">
+                <div><span>CREW HEALTH</span><strong id="lives"></strong></div>
+                <div><span>RISING WATER</span><strong id="flood"></strong></div>
+                <div><span>PROGRESS</span><strong id="turn"></strong></div>
+              </div>
+              <div class="phase-card">
+                <span class="eyebrow" id="phaselabel">READ THE CHART</span>
+                <h2 id="banner"></h2>
+                <div class="clock"><div id="bar"></div></div>
+                <p id="timer"></p>
+              </div>
+              <section class="card signal-card">
+                <div class="section-title">
+                  <h3>Send a signal</h3>
+                  <span id="allowance"></span>
+                </div>
+                <p class="micro">No words. Make your three signals count.</p>
+                <div id="palette"></div>
+                <div class="feed-heading">
+                  <span class="eyebrow">CREW SIGNALS</span
+                  ><span>LIVE FEED</span>
+                </div>
+                <ol id="feed" aria-live="polite"></ol>
+              </section>
+              <div class="private-card">
+                <span class="eyebrow">FOR YOUR EYES ONLY</span>
+                <p id="clue"></p>
+                <button
+                  id="charttoggle"
+                  class="textbutton"
+                  aria-expanded="false"
+                >
+                  Open flat chart ↓
+                </button>
+                <div id="chartpanel" hidden>
+                  <div id="grid" aria-label="Private expedition chart"></div>
+                  <p class="legend">
+                    A–G west to east. 1–7 south to north. Tap an outlined
+                    neighbour to move during your turn.
+                  </p>
+                </div>
+              </div>
+              <button id="callvote" class="vote-button" hidden>
+                ◎ Call emergency vote <span>ONE PER EXPEDITION</span>
+              </button>
+              <section id="voting" class="card" hidden>
+                <span class="eyebrow">TRUST YOUR INSTINCT</span>
+                <h3>Who is the Saboteur?</h3>
+                <p id="votestatus"></p>
+                <div id="ballots"></div>
+              </section>
+              <p id="voteresult" role="status"></p>
+              <div id="result" class="card" hidden></div>
+              <button id="again" class="primary" hidden>Play again ↗</button>
+              <details class="field-guide">
+                <summary>Expedition rules</summary>
+                <p>
+                  Signal: 15 seconds and three emoji per player. Step: the
+                  Navigator has 10 seconds for one adjacent move. Every turn
+                  floods one row. A trap costs one life and floods an extra row.
+                  Treasure arrival wins before flooding. Blue cells block future
+                  entry.
+                </p>
+                <p>
+                  A vote pauses the clock. A strict majority identifying the
+                  Saboteur wins. A wrong accusation costs one life and creates a
+                  spectator. No majority spends the vote without a penalty.
+                </p>
+              </details>
+            </section>
+          </section>
+        </div>
+      </div>
+      <footer>
+        <span>BLIND CARTOGRAPHERS / RISING TIDE</span
+        ><span>A game of fragments &amp; fragile alliances.</span>
+      </footer>
+    </main>
+    <dialog id="tutorial">
+      <span class="eyebrow" id="tutorialstep"></span>
+      <div class="tutorial-art">⌁</div>
+      <h2 id="tutorialtitle"></h2>
+      <p id="tutorialtext"></p>
+      <button id="tutorialnext" class="primary">Next ↗</button>
+    </dialog>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/app.js"></script>
+    <script type="module" src="/world.js"></script>
+  </body>
+</html>
